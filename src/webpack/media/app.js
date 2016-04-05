@@ -1,4 +1,6 @@
 // 定义一个顶层的vmodel，用来放置全局共享数据
+window.avalon= avalon = require('avalon')
+require('mmState')
 var root = avalon.define({
     page : "",
     $id: "root",
@@ -30,27 +32,22 @@ avalon.state("blog", {
         // return false;
     },
     views: {
-        // "": {
-        //     // templateUrl: "pages/common/blog.html", // 指定模板地址
-        //     templateProvider: function (){    // 指定模板地址
-        //         return new Promise(function (rs) {
-        //             require.ensure([], function (tt) {
-        //                 rs(require("pages/common/blog.html"));
-        //             })
-        //         })
-        //     },
-        //     controllerProvider: function (){    // 指定控制器地址
-        //         return new Promise(function (rs) {
-        //             require.ensure([], function (tt) {
-        //                 rs(require("pages/common/blog.js"));
-        //             })
-        //         })
-        //     }
-        // },
-        "": { // 视图名字的语法请仔细查阅文档
-            template: function() {
-                return "<div style=\"text-align:center;\">this is view</div>"
-            } // 指定一个返回字符串的函数来获取模板
+        "": {
+            // templateUrl: "pages/common/blog.html", // 指定模板地址
+            templateProvider: function (){    // 指定模板地址
+                return new Promise(function (rs) {
+                    require.ensure([], function (tt) {
+                        rs(require("pages/common/blog.html"));
+                    })
+                })
+            },
+            controllerProvider: function (){    // 指定控制器地址
+                return new Promise(function (rs) {
+                    require.ensure([], function (tt) {
+                        rs(require("pages/common/blog.js"));
+                    })
+                })
+            }
         },
         "footer@": { // 视图名字的语法请仔细查阅文档
             template: function() {
@@ -68,7 +65,7 @@ avalon.state("blog", {
     views: {
         "": {
             templateUrl: "pages/lists/list.html",
-            controllerUrl: "pages/lists/lists",
+            controller: require("pages/lists/lists"),
             ignoreChange: function(type) {
                 return !!type
             } // url通过{}配置的参数变量发生变化的时候是否通过innerHTML重刷ms-view内的DOM，默认会，如果你做的是翻页这种应用，建议使用例子内的配置，把数据更新到vmodel上即可
@@ -79,7 +76,7 @@ avalon.state("blog", {
     views: {
         "": {
             templateUrl: "pages/detail/detail.html",
-            controllerUrl: "pages/detail/detail",
+            controller: require("pages/detail/detail"),
             cacheController: false
         }
     }
@@ -96,14 +93,14 @@ avalon.state.config({
         console.log(arguments)
     }, // 强烈打开错误配置
     onLoad: function() {
-        root.page = mmState.currentState.stateName.split(".")[1]
+        // root.page = mmState.currentState.stateName.split(".")[1]
     },
     onViewEnter: function(newNode, oldNode) {
-        avalon(oldNode).animate({
-            marginLeft: "-100%"
-        }, 500, "easein", function() {
-            oldNode.parentNode && oldNode.parentNode.removeChild(oldNode)
-        })
+        // avalon(oldNode).animate({
+        //     marginLeft: "-100%"
+        // }, 500, "easein", function() {
+        //     oldNode.parentNode && oldNode.parentNode.removeChild(oldNode)
+        // })
 
     } // 不建议使用动画，因此实际使用的时候，最好去掉onViewEnter和ms-view元素上的oni-mmRouter-slide
 
