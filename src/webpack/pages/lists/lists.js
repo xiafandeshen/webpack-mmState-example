@@ -24,6 +24,7 @@ module.exports = avalon.controller(function($ctrl) {
     }
     // 进入视图
     $ctrl.$onEnter = function(params, rs) {
+        console.log(params,mmState.query);
         lists.currentPage = params.pageId !== "" ? params.pageId : 0
         setTimeout(function() {
             var arr = []

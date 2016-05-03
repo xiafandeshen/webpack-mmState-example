@@ -33,7 +33,6 @@ avalon.state("blog", {
     },
     views: {
         "": {
-            // templateUrl: "pages/common/blog.html", // 指定模板地址
             templateProvider: function (){    // 指定模板地址
                 return new Promise(function (rs) {
                     require.ensure([], function (tt) {

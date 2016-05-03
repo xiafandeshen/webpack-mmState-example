@@ -3,8 +3,8 @@
     width: 320px;
     min-height: 480px;
     font-size: 13px;
-    overflow: hidden;
-    border: 10px solid #000; 
+    /*overflow: hidden;*/
+    border: 10px solid #000;
     border-radius: 10px;
 }
 .blog{

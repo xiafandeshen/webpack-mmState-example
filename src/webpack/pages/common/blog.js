@@ -8,6 +8,7 @@ module.exports = avalon.controller(function($ctrl) {
     }
     // 进入视图
     $ctrl.$onEnter = function() {
+        console.log(11111,mmState.query);
     }
     // 对应的视图销毁前
     $ctrl.$onBeforeUnload = function() {}
